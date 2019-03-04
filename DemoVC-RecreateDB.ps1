@@ -350,7 +350,7 @@ Write-Output "Switching $WebSiteName slot"
 
 Switch-AzureRmWebAppSlot -Name $WebSiteName -ResourceGroupName $DestResourceGroupName -SourceSlotName "staging" -DestinationSlotName "production"
 
-Write-Output "Switching $WebSiteName slot"
+Write-Output "Switching $WebSiteName2 slot"
  
 Switch-AzureRmWebAppSlot -Name $WebSiteName2 -ResourceGroupName $DestResourceGroupName -SourceSlotName "staging" -DestinationSlotName "production"
 
