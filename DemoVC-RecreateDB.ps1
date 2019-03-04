@@ -337,9 +337,9 @@ $dirpath = "Themes/"
 
 Remove-Blobs -AccountName $accountname -AccountKey $accountKey -DirPath $dirpath -ContainerName $containerName
 
-${env:Utils}\AzCopy\AzCopy /Source:".\$elecPath" /Dest:https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$elecPath /DestKey:$accountKey /S
-${env:Utils}\AzCopy\AzCopy /Source:$b2bPath /Dest:https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$b2bPath /DestKey:$accountKey /S
-${env:Utils}\AzCopy\AzCopy /Source:$clothPath /Dest:https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$clothPath /DestKey:$accountKey /S
+& "${env:Utils}\AzCopy\AzCopy" /Source:".\$elecPath" /Dest:https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$elecPath /DestKey:$accountKey /S
+& "${env:Utils}\AzCopy\AzCopy" /Source:$b2bPath /Dest:https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$b2bPath /DestKey:$accountKey /S
+& "${env:Utils}\AzCopy\AzCopy" /Source:$clothPath /Dest:https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$clothPath /DestKey:$accountKey /S
 
 Remove-Item $elecPath -Recurse -Force
 Remove-Item $b2bPath -Recurse -Force
