@@ -27,8 +27,6 @@ $DestResourceGroupName = "demo.vc-prod"
 
 $appId = "${env:HMAC_APP_ID}"
 $secret = "${env:HMAC_SECRET}"
-$accountname = "qademovc"
-$accountKey = "${env:AzureBlobKeyQA}"
 
 #Import-Module Azure
 #Import-AzurePublishSettingsFile $publishSettingsFile
@@ -314,6 +312,9 @@ Function Remove-Blobs{
     }
     While ($Token -ne $Null)
 }
+
+$accountname = $storageSettings['AccountName']
+$accountKey = $storageSettings['AccountKey']
 
 #Get the latest releases
 $electronicsAsset = Get-GithubLatestReleaseAssetUrl -RepoName "vc-theme-default"
