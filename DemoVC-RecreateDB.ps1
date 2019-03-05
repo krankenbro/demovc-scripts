@@ -317,30 +317,40 @@ $accountname = $storageSettings['AccountName']
 $accountKey = $storageSettings['AccountKey']
 
 #Get the latest releases
+Write-Output "Get latest release vc-theme-default"
 $electronicsAsset = Get-GithubLatestReleaseAssetUrl -RepoName "vc-theme-default"
+Write-Output "Get latest release vc-theme-b2b"
 $b2bAsset = Get-GithubLatestReleaseAssetUrl -RepoName "vc-theme-b2b"
+Write-Output "Get latest release vc-theme-material"
 $clothingAsset = Get-GithubLatestReleaseAssetUrl -RepoName "vc-theme-material"
 
 $elecPath = "Electronics"
 $b2bPath = "B2B-store"
 $clothPath = "Clothing"
 
+Write-Output "Prepare Theme $elecPath"
 Prepare-Theme -AssetUrl $electronicsAsset -Path $elecPath
+Write-Output "Prepare Theme $b2bPath"
 Prepare-Theme -AssetUrl $b2bAsset -Path $b2bPath
+Write-Output "Prepare Theme $clothPath"
 Prepare-Theme -AssetUrl $clothingAsset -Path $clothPath
 
 #Remove blobs
 
-
 $ContainerName = "cms"
 $dirpath = "Themes/"
 
-Remove-Blobs -AccountName $accountname -AccountKey $accountKey -DirPath $dirpath -ContainerName $containerName
+Write-Output "Remove Blob $ContainerName"
+Remove-Blobs -AccountName $accountname -AccountKey $accountKey -DirPath $dirpath -ContainerName $ContainerName
 
+Write-Output "AzCopy $elecPath"
 & "${env:Utils}\AzCopy\AzCopy" $elecPath https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$elecPath /DestKey:$accountKey /S
+Write-Output "AzCopy $b2bPath"
 & "${env:Utils}\AzCopy\AzCopy" $b2bPath https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$b2bPath /DestKey:$accountKey /S
+Write-Output "AzCopy $clothPath"
 & "${env:Utils}\AzCopy\AzCopy" $clothPath https://$($accountname).blob.core.windows.net/$ContainerName/$dirpath$clothPath /DestKey:$accountKey /S
 
+Write-Output "Remove Temporary Files"
 Remove-Item $elecPath -Recurse -Force
 Remove-Item $b2bPath -Recurse -Force
 Remove-Item $clothPath -Recurse -Force
